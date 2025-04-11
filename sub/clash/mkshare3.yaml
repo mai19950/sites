@@ -44,7 +44,7 @@ dns:
 #========= 建立锚点 =========#
 
 # 策略组引用
-node_remakes: &r1 { proxies: ['流量_mkshare3：4.79 GB', '🇭🇰香港01_mkshare3', '🇭🇰香港02_mkshare3', '🇭🇰香港家宽03_mkshare3', '🇹🇼台湾01_mkshare3', '🇹🇼台湾02_mkshare3', '🇹🇼台湾03_mkshare3', '🇯🇵日本01_mkshare3', '🇯🇵日本02_mkshare3', '🇯🇵日本03_mkshare3', '🇸🇬新加坡01_mkshare3', '🇸🇬新加坡02_mkshare3', '🇸🇬新加坡03_mkshare3', '🇰🇷韩国01_mkshare3', '🇰🇷韩国02_mkshare3', '🇵🇭菲律宾01_mkshare3', '🇺🇸美国01_mkshare3', '🇺🇸美国家宽02_mkshare3', '🇺🇸美国03_mkshare3', '🇬🇧英国家宽01_mkshare3', '🇪🇸西班牙01_mkshare3', '🇲🇾马来西亚01_mkshare3', '🇲🇾马来西亚02_mkshare3', '🇹🇭泰国01_mkshare3', '🇮🇳印度01_mkshare3', '🇦🇺澳大利亚01_mkshare3', '🇨🇦加拿大01_mkshare3', '🇩🇪德国01_mkshare3', '🇷🇺俄罗斯01_mkshare3', '🇹🇷土耳其01_mkshare3', '🇺🇦乌克兰01_mkshare3', '🇻🇳越南01_mkshare3', '🇧🇷巴西01_mkshare3', '🇮🇩印度尼西亚01_mkshare3'] }
+node_remakes: &r1 { proxies: ['流量_mkshare3：5 GB', '🇭🇰香港01_mkshare3', '🇭🇰香港02_mkshare3', '🇭🇰香港家宽03_mkshare3', '🇹🇼台湾01_mkshare3', '🇹🇼台湾02_mkshare3', '🇹🇼台湾03_mkshare3', '🇯🇵日本01_mkshare3', '🇯🇵日本02_mkshare3', '🇯🇵日本03_mkshare3', '🇸🇬新加坡01_mkshare3', '🇸🇬新加坡02_mkshare3', '🇸🇬新加坡03_mkshare3', '🇰🇷韩国01_mkshare3', '🇰🇷韩国02_mkshare3', '🇵🇭菲律宾01_mkshare3', '🇺🇸美国01_mkshare3', '🇺🇸美国家宽02_mkshare3', '🇺🇸美国03_mkshare3', '🇬🇧英国家宽01_mkshare3', '🇪🇸西班牙01_mkshare3', '🇲🇾马来西亚01_mkshare3', '🇲🇾马来西亚02_mkshare3', '🇹🇭泰国01_mkshare3', '🇮🇳印度01_mkshare3', '🇦🇺澳大利亚01_mkshare3', '🇨🇦加拿大01_mkshare3', '🇩🇪德国01_mkshare3', '🇷🇺俄罗斯01_mkshare3', '🇹🇷土耳其01_mkshare3', '🇺🇦乌克兰01_mkshare3', '🇻🇳越南01_mkshare3', '🇧🇷巴西01_mkshare3', '🇮🇩印度尼西亚01_mkshare3'] }
 pr:   &a3 {type: select,   proxies: [♻️ 自动选择, 🚀 手动切换, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇨🇳 台湾节点, 🇸🇬 狮城节点, DIRECT] }
 p:    &a1 {type: http,     interval: 86400,  health-check: {enable: true, url: http://www.gstatic.com/generate_204, interval: 300} }
 auto: &a4 {type: url-test, lazy: true,  url: http://www.gstatic.com/generate_204, interval: 300, <<: *r1 }
@@ -62,40 +62,40 @@ proxy-providers: null
   #   path: ./proxy_providers/tmp.yaml
     
 proxies:
-  - { name: '流量_mkshare3：4.79 GB', type: ss, server: free.2apzhfa.xyz, port: 31141, cipher: chacha20-ietf-poly1305, password: 370ddefe-19ec-4e32-bda5-57f2ae472d14, udp: true }
-  - { name: '🇭🇰香港01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31141, cipher: chacha20-ietf-poly1305, password: 370ddefe-19ec-4e32-bda5-57f2ae472d14, udp: true }
-  - { name: '🇭🇰香港02_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31143, cipher: chacha20-ietf-poly1305, password: 370ddefe-19ec-4e32-bda5-57f2ae472d14, udp: true }
-  - { name: '🇭🇰香港家宽03_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31145, cipher: chacha20-ietf-poly1305, password: 370ddefe-19ec-4e32-bda5-57f2ae472d14, udp: true }
-  - { name: '🇹🇼台湾01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31241, cipher: chacha20-ietf-poly1305, password: 370ddefe-19ec-4e32-bda5-57f2ae472d14, udp: true }
-  - { name: '🇹🇼台湾02_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31243, cipher: chacha20-ietf-poly1305, password: 370ddefe-19ec-4e32-bda5-57f2ae472d14, udp: true }
-  - { name: '🇹🇼台湾03_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31245, cipher: chacha20-ietf-poly1305, password: 370ddefe-19ec-4e32-bda5-57f2ae472d14, udp: true }
-  - { name: '🇯🇵日本01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31111, cipher: chacha20-ietf-poly1305, password: 370ddefe-19ec-4e32-bda5-57f2ae472d14, udp: true }
-  - { name: '🇯🇵日本02_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31113, cipher: chacha20-ietf-poly1305, password: 370ddefe-19ec-4e32-bda5-57f2ae472d14, udp: true }
-  - { name: '🇯🇵日本03_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31115, cipher: chacha20-ietf-poly1305, password: 370ddefe-19ec-4e32-bda5-57f2ae472d14, udp: true }
-  - { name: '🇸🇬新加坡01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31171, cipher: chacha20-ietf-poly1305, password: 370ddefe-19ec-4e32-bda5-57f2ae472d14, udp: true }
-  - { name: '🇸🇬新加坡02_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31173, cipher: chacha20-ietf-poly1305, password: 370ddefe-19ec-4e32-bda5-57f2ae472d14, udp: true }
-  - { name: '🇸🇬新加坡03_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31175, cipher: chacha20-ietf-poly1305, password: 370ddefe-19ec-4e32-bda5-57f2ae472d14, udp: true }
-  - { name: '🇰🇷韩国01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31311, cipher: chacha20-ietf-poly1305, password: 370ddefe-19ec-4e32-bda5-57f2ae472d14, udp: true }
-  - { name: '🇰🇷韩国02_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31313, cipher: chacha20-ietf-poly1305, password: 370ddefe-19ec-4e32-bda5-57f2ae472d14, udp: true }
-  - { name: '🇵🇭菲律宾01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31341, cipher: chacha20-ietf-poly1305, password: 370ddefe-19ec-4e32-bda5-57f2ae472d14, udp: true }
-  - { name: '🇺🇸美国01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31211, cipher: chacha20-ietf-poly1305, password: 370ddefe-19ec-4e32-bda5-57f2ae472d14, udp: true }
-  - { name: '🇺🇸美国家宽02_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31213, cipher: chacha20-ietf-poly1305, password: 370ddefe-19ec-4e32-bda5-57f2ae472d14, udp: true }
-  - { name: '🇺🇸美国03_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31215, cipher: chacha20-ietf-poly1305, password: 370ddefe-19ec-4e32-bda5-57f2ae472d14, udp: true }
-  - { name: '🇬🇧英国家宽01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31271, cipher: chacha20-ietf-poly1305, password: 370ddefe-19ec-4e32-bda5-57f2ae472d14, udp: true }
-  - { name: '🇪🇸西班牙01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31741, cipher: chacha20-ietf-poly1305, password: 370ddefe-19ec-4e32-bda5-57f2ae472d14, udp: true }
-  - { name: '🇲🇾马来西亚01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31721, cipher: chacha20-ietf-poly1305, password: 370ddefe-19ec-4e32-bda5-57f2ae472d14, udp: true }
-  - { name: '🇲🇾马来西亚02_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31722, cipher: chacha20-ietf-poly1305, password: 370ddefe-19ec-4e32-bda5-57f2ae472d14, udp: true }
-  - { name: '🇹🇭泰国01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31741, cipher: chacha20-ietf-poly1305, password: 370ddefe-19ec-4e32-bda5-57f2ae472d14, udp: true }
-  - { name: '🇮🇳印度01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31371, cipher: chacha20-ietf-poly1305, password: 370ddefe-19ec-4e32-bda5-57f2ae472d14, udp: true }
-  - { name: '🇦🇺澳大利亚01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31411, cipher: chacha20-ietf-poly1305, password: 370ddefe-19ec-4e32-bda5-57f2ae472d14, udp: true }
-  - { name: '🇨🇦加拿大01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31441, cipher: chacha20-ietf-poly1305, password: 370ddefe-19ec-4e32-bda5-57f2ae472d14, udp: true }
-  - { name: '🇩🇪德国01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31471, cipher: chacha20-ietf-poly1305, password: 370ddefe-19ec-4e32-bda5-57f2ae472d14, udp: true }
-  - { name: '🇷🇺俄罗斯01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31511, cipher: chacha20-ietf-poly1305, password: 370ddefe-19ec-4e32-bda5-57f2ae472d14, udp: true }
-  - { name: '🇹🇷土耳其01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31571, cipher: chacha20-ietf-poly1305, password: 370ddefe-19ec-4e32-bda5-57f2ae472d14, udp: true }
-  - { name: '🇺🇦乌克兰01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31611, cipher: chacha20-ietf-poly1305, password: 370ddefe-19ec-4e32-bda5-57f2ae472d14, udp: true }
-  - { name: '🇻🇳越南01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31641, cipher: chacha20-ietf-poly1305, password: 370ddefe-19ec-4e32-bda5-57f2ae472d14, udp: true }
-  - { name: '🇧🇷巴西01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31671, cipher: chacha20-ietf-poly1305, password: 370ddefe-19ec-4e32-bda5-57f2ae472d14, udp: true }
-  - { name: '🇮🇩印度尼西亚01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31677, cipher: chacha20-ietf-poly1305, password: 370ddefe-19ec-4e32-bda5-57f2ae472d14, udp: true }
+  - { name: '流量_mkshare3：5 GB', type: ss, server: free.2apzhfa.xyz, port: 31141, cipher: chacha20-ietf-poly1305, password: 191f3778-20b3-4b69-9dd3-d053f699bdb7, udp: true }
+  - { name: '🇭🇰香港01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31141, cipher: chacha20-ietf-poly1305, password: 191f3778-20b3-4b69-9dd3-d053f699bdb7, udp: true }
+  - { name: '🇭🇰香港02_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31143, cipher: chacha20-ietf-poly1305, password: 191f3778-20b3-4b69-9dd3-d053f699bdb7, udp: true }
+  - { name: '🇭🇰香港家宽03_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31145, cipher: chacha20-ietf-poly1305, password: 191f3778-20b3-4b69-9dd3-d053f699bdb7, udp: true }
+  - { name: '🇹🇼台湾01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31241, cipher: chacha20-ietf-poly1305, password: 191f3778-20b3-4b69-9dd3-d053f699bdb7, udp: true }
+  - { name: '🇹🇼台湾02_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31243, cipher: chacha20-ietf-poly1305, password: 191f3778-20b3-4b69-9dd3-d053f699bdb7, udp: true }
+  - { name: '🇹🇼台湾03_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31245, cipher: chacha20-ietf-poly1305, password: 191f3778-20b3-4b69-9dd3-d053f699bdb7, udp: true }
+  - { name: '🇯🇵日本01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31111, cipher: chacha20-ietf-poly1305, password: 191f3778-20b3-4b69-9dd3-d053f699bdb7, udp: true }
+  - { name: '🇯🇵日本02_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31113, cipher: chacha20-ietf-poly1305, password: 191f3778-20b3-4b69-9dd3-d053f699bdb7, udp: true }
+  - { name: '🇯🇵日本03_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31115, cipher: chacha20-ietf-poly1305, password: 191f3778-20b3-4b69-9dd3-d053f699bdb7, udp: true }
+  - { name: '🇸🇬新加坡01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31171, cipher: chacha20-ietf-poly1305, password: 191f3778-20b3-4b69-9dd3-d053f699bdb7, udp: true }
+  - { name: '🇸🇬新加坡02_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31173, cipher: chacha20-ietf-poly1305, password: 191f3778-20b3-4b69-9dd3-d053f699bdb7, udp: true }
+  - { name: '🇸🇬新加坡03_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31175, cipher: chacha20-ietf-poly1305, password: 191f3778-20b3-4b69-9dd3-d053f699bdb7, udp: true }
+  - { name: '🇰🇷韩国01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31311, cipher: chacha20-ietf-poly1305, password: 191f3778-20b3-4b69-9dd3-d053f699bdb7, udp: true }
+  - { name: '🇰🇷韩国02_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31313, cipher: chacha20-ietf-poly1305, password: 191f3778-20b3-4b69-9dd3-d053f699bdb7, udp: true }
+  - { name: '🇵🇭菲律宾01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31341, cipher: chacha20-ietf-poly1305, password: 191f3778-20b3-4b69-9dd3-d053f699bdb7, udp: true }
+  - { name: '🇺🇸美国01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31211, cipher: chacha20-ietf-poly1305, password: 191f3778-20b3-4b69-9dd3-d053f699bdb7, udp: true }
+  - { name: '🇺🇸美国家宽02_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31213, cipher: chacha20-ietf-poly1305, password: 191f3778-20b3-4b69-9dd3-d053f699bdb7, udp: true }
+  - { name: '🇺🇸美国03_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31215, cipher: chacha20-ietf-poly1305, password: 191f3778-20b3-4b69-9dd3-d053f699bdb7, udp: true }
+  - { name: '🇬🇧英国家宽01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31271, cipher: chacha20-ietf-poly1305, password: 191f3778-20b3-4b69-9dd3-d053f699bdb7, udp: true }
+  - { name: '🇪🇸西班牙01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31741, cipher: chacha20-ietf-poly1305, password: 191f3778-20b3-4b69-9dd3-d053f699bdb7, udp: true }
+  - { name: '🇲🇾马来西亚01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31721, cipher: chacha20-ietf-poly1305, password: 191f3778-20b3-4b69-9dd3-d053f699bdb7, udp: true }
+  - { name: '🇲🇾马来西亚02_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31722, cipher: chacha20-ietf-poly1305, password: 191f3778-20b3-4b69-9dd3-d053f699bdb7, udp: true }
+  - { name: '🇹🇭泰国01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31741, cipher: chacha20-ietf-poly1305, password: 191f3778-20b3-4b69-9dd3-d053f699bdb7, udp: true }
+  - { name: '🇮🇳印度01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31371, cipher: chacha20-ietf-poly1305, password: 191f3778-20b3-4b69-9dd3-d053f699bdb7, udp: true }
+  - { name: '🇦🇺澳大利亚01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31411, cipher: chacha20-ietf-poly1305, password: 191f3778-20b3-4b69-9dd3-d053f699bdb7, udp: true }
+  - { name: '🇨🇦加拿大01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31441, cipher: chacha20-ietf-poly1305, password: 191f3778-20b3-4b69-9dd3-d053f699bdb7, udp: true }
+  - { name: '🇩🇪德国01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31471, cipher: chacha20-ietf-poly1305, password: 191f3778-20b3-4b69-9dd3-d053f699bdb7, udp: true }
+  - { name: '🇷🇺俄罗斯01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31511, cipher: chacha20-ietf-poly1305, password: 191f3778-20b3-4b69-9dd3-d053f699bdb7, udp: true }
+  - { name: '🇹🇷土耳其01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31571, cipher: chacha20-ietf-poly1305, password: 191f3778-20b3-4b69-9dd3-d053f699bdb7, udp: true }
+  - { name: '🇺🇦乌克兰01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31611, cipher: chacha20-ietf-poly1305, password: 191f3778-20b3-4b69-9dd3-d053f699bdb7, udp: true }
+  - { name: '🇻🇳越南01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31641, cipher: chacha20-ietf-poly1305, password: 191f3778-20b3-4b69-9dd3-d053f699bdb7, udp: true }
+  - { name: '🇧🇷巴西01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31671, cipher: chacha20-ietf-poly1305, password: 191f3778-20b3-4b69-9dd3-d053f699bdb7, udp: true }
+  - { name: '🇮🇩印度尼西亚01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31677, cipher: chacha20-ietf-poly1305, password: 191f3778-20b3-4b69-9dd3-d053f699bdb7, udp: true }
 proxy-groups:
 #分流分组
   - {name: 🚀 手动切换, <<: *a2}
