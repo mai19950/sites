@@ -1,0 +1,182 @@
+# update at 2025.04.20|03:00:06
+port: 1080           # HTTP 代理端口
+socks-port: 1081     # Socks 端口
+redir-port: 1082     # Redir 端口
+mixed-port: 1083     # 混合端口
+allow-lan: true      # 允许局域网连接
+bind-address: "*"    # 地址绑定
+mode: rule           # 规则模式
+log-level: info      # 日志级别
+ipv6: false          # IPV6开关
+external-controller: 127.0.0.1:9090
+
+dns:
+  enable: true       # 不使用系统 DNS
+  ipv6: false        # 关闭 IPV6
+  listen: 0.0.0.0:53 # dns 监听
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:
+    - "*.lan"
+    - localhost.ptlogin2.qq.com
+    - +.srv.nintendo.net
+    - +.stun.playstation.net
+    - +.msftconnecttest.com
+    - +.msftncsi.com
+    - +.xboxlive.com
+    - msftconnecttest.com
+    - xbox.*.microsoft.com
+    - "*.battlenet.com.cn"
+    - "*.battlenet.com"
+    - "*.blzstatic.cn"
+    - "*.battle.net"
+  nameserver:        # 默认 DNS 服务
+    - 223.5.5.5
+    - 119.29.29.29
+  fallback:          # 国外 DNS 服务器
+    - https://cloudflare-dns.com/dns-query
+    - https://dns.google/dns-query
+    - https://dns.alidns.com/dns-query
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+    ipcidr:
+      - 240.0.0.0/4
+#========= 建立锚点 =========#
+
+# 策略组引用
+node_remakes: &r1 { proxies: ['04.20|03:00:06_mks：4.49 GB', '🇭🇰香港01_mkshare3', '🇭🇰香港02_mkshare3', '🇭🇰香港家宽03_mkshare3', '🇹🇼台湾01_mkshare3', '🇹🇼台湾02_mkshare3', '🇹🇼台湾03_mkshare3', '🇯🇵日本01_mkshare3', '🇯🇵日本02_mkshare3', '🇯🇵日本03_mkshare3', '🇸🇬新加坡01_mkshare3', '🇸🇬新加坡02_mkshare3', '🇸🇬新加坡03_mkshare3', '🇰🇷韩国01_mkshare3', '🇰🇷韩国02_mkshare3', '🇵🇭菲律宾01_mkshare3', '🇺🇸美国01_mkshare3', '🇺🇸美国家宽02_mkshare3', '🇺🇸美国03_mkshare3', '🇬🇧英国家宽01_mkshare3', '🇪🇸西班牙01_mkshare3', '🇲🇾马来西亚01_mkshare3', '🇲🇾马来西亚02_mkshare3', '🇹🇭泰国01_mkshare3', '🇮🇳印度01_mkshare3', '🇦🇺澳大利亚01_mkshare3', '🇨🇦加拿大01_mkshare3', '🇩🇪德国01_mkshare3', '🇷🇺俄罗斯01_mkshare3', '🇹🇷土耳其01_mkshare3', '🇺🇦乌克兰01_mkshare3', '🇻🇳越南01_mkshare3', '🇧🇷巴西01_mkshare3', '🇮🇩印度尼西亚01_mkshare3'] }
+hongkong: &hk { proxies: ['🇭🇰香港01_mkshare3', '🇭🇰香港02_mkshare3', '🇭🇰香港家宽03_mkshare3'] }
+japan: &jp { proxies: ['🇯🇵日本01_mkshare3', '🇯🇵日本02_mkshare3', '🇯🇵日本03_mkshare3'] }
+taiwan: &tw { proxies: ['🇹🇼台湾01_mkshare3', '🇹🇼台湾02_mkshare3', '🇹🇼台湾03_mkshare3'] }
+american: &us { proxies: ['🇺🇸美国01_mkshare3', '🇺🇸美国家宽02_mkshare3', '🇺🇸美国03_mkshare3'] }
+singapore: &sg { proxies: ['🇸🇬新加坡01_mkshare3', '🇸🇬新加坡02_mkshare3', '🇸🇬新加坡03_mkshare3'] }
+german: &de { proxies: ['🇩🇪德国01_mkshare3'] }
+united_kingdom: &uk { proxies: ['🇬🇧英国家宽01_mkshare3'] }
+russian: &ru { proxies: ['🇷🇺俄罗斯01_mkshare3'] }
+malaysia: &my { proxies: ['🇲🇾马来西亚01_mkshare3', '🇲🇾马来西亚02_mkshare3'] }
+korea: &kr { proxies: ['🇰🇷韩国01_mkshare3', '🇰🇷韩国02_mkshare3'] }
+
+pr:   &a3 {type: select,   proxies: [♻️ 自动选择, 🚀 手动切换, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇨🇳 台湾节点, 🇸🇬 狮城节点, 🇩🇪 德国节点, 🇬🇧 英国节点, 🇷🇺 俄罗斯节点, 🇲🇾 马来西亚节点, 🇰🇷 韩国节点, DIRECT] }
+p:    &a1 {type: http,     interval: 86400,  health-check: {enable: true, url: http://www.gstatic.com/generate_204, interval: 300} }
+auto: &a4 {type: url-test, lazy: true,  url: http://www.gstatic.com/generate_204, interval: 300 }
+use:  &a2 {type: select,   <<: *r1 }
+c:    &a6 {type: http,     behavior: classical, interval: 86400}
+d:    &a5 {type: http,     behavior: domain,    interval: 86400}
+i:    &a7 {type: http,     behavior: ipcidr,    interval: 86400}
+
+proxy-providers: null
+
+proxies:
+  - { name: '04.20|03:00:06_mks：4.49 GB', type: ss, server: free.2apzhfa.xyz, port: 31141, cipher: chacha20-ietf-poly1305, password: c819a84c-17d4-4454-a528-63b0492a0c21, udp: true }
+  - { name: '🇭🇰香港01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31141, cipher: chacha20-ietf-poly1305, password: c819a84c-17d4-4454-a528-63b0492a0c21, udp: true }
+  - { name: '🇭🇰香港02_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31143, cipher: chacha20-ietf-poly1305, password: c819a84c-17d4-4454-a528-63b0492a0c21, udp: true }
+  - { name: '🇭🇰香港家宽03_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31145, cipher: chacha20-ietf-poly1305, password: c819a84c-17d4-4454-a528-63b0492a0c21, udp: true }
+  - { name: '🇹🇼台湾01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31241, cipher: chacha20-ietf-poly1305, password: c819a84c-17d4-4454-a528-63b0492a0c21, udp: true }
+  - { name: '🇹🇼台湾02_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31243, cipher: chacha20-ietf-poly1305, password: c819a84c-17d4-4454-a528-63b0492a0c21, udp: true }
+  - { name: '🇹🇼台湾03_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31245, cipher: chacha20-ietf-poly1305, password: c819a84c-17d4-4454-a528-63b0492a0c21, udp: true }
+  - { name: '🇯🇵日本01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31111, cipher: chacha20-ietf-poly1305, password: c819a84c-17d4-4454-a528-63b0492a0c21, udp: true }
+  - { name: '🇯🇵日本02_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31113, cipher: chacha20-ietf-poly1305, password: c819a84c-17d4-4454-a528-63b0492a0c21, udp: true }
+  - { name: '🇯🇵日本03_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31115, cipher: chacha20-ietf-poly1305, password: c819a84c-17d4-4454-a528-63b0492a0c21, udp: true }
+  - { name: '🇸🇬新加坡01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31171, cipher: chacha20-ietf-poly1305, password: c819a84c-17d4-4454-a528-63b0492a0c21, udp: true }
+  - { name: '🇸🇬新加坡02_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31173, cipher: chacha20-ietf-poly1305, password: c819a84c-17d4-4454-a528-63b0492a0c21, udp: true }
+  - { name: '🇸🇬新加坡03_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31175, cipher: chacha20-ietf-poly1305, password: c819a84c-17d4-4454-a528-63b0492a0c21, udp: true }
+  - { name: '🇰🇷韩国01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31311, cipher: chacha20-ietf-poly1305, password: c819a84c-17d4-4454-a528-63b0492a0c21, udp: true }
+  - { name: '🇰🇷韩国02_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31313, cipher: chacha20-ietf-poly1305, password: c819a84c-17d4-4454-a528-63b0492a0c21, udp: true }
+  - { name: '🇵🇭菲律宾01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31341, cipher: chacha20-ietf-poly1305, password: c819a84c-17d4-4454-a528-63b0492a0c21, udp: true }
+  - { name: '🇺🇸美国01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31211, cipher: chacha20-ietf-poly1305, password: c819a84c-17d4-4454-a528-63b0492a0c21, udp: true }
+  - { name: '🇺🇸美国家宽02_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31213, cipher: chacha20-ietf-poly1305, password: c819a84c-17d4-4454-a528-63b0492a0c21, udp: true }
+  - { name: '🇺🇸美国03_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31215, cipher: chacha20-ietf-poly1305, password: c819a84c-17d4-4454-a528-63b0492a0c21, udp: true }
+  - { name: '🇬🇧英国家宽01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31271, cipher: chacha20-ietf-poly1305, password: c819a84c-17d4-4454-a528-63b0492a0c21, udp: true }
+  - { name: '🇪🇸西班牙01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31741, cipher: chacha20-ietf-poly1305, password: c819a84c-17d4-4454-a528-63b0492a0c21, udp: true }
+  - { name: '🇲🇾马来西亚01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31721, cipher: chacha20-ietf-poly1305, password: c819a84c-17d4-4454-a528-63b0492a0c21, udp: true }
+  - { name: '🇲🇾马来西亚02_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31722, cipher: chacha20-ietf-poly1305, password: c819a84c-17d4-4454-a528-63b0492a0c21, udp: true }
+  - { name: '🇹🇭泰国01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31741, cipher: chacha20-ietf-poly1305, password: c819a84c-17d4-4454-a528-63b0492a0c21, udp: true }
+  - { name: '🇮🇳印度01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31371, cipher: chacha20-ietf-poly1305, password: c819a84c-17d4-4454-a528-63b0492a0c21, udp: true }
+  - { name: '🇦🇺澳大利亚01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31411, cipher: chacha20-ietf-poly1305, password: c819a84c-17d4-4454-a528-63b0492a0c21, udp: true }
+  - { name: '🇨🇦加拿大01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31441, cipher: chacha20-ietf-poly1305, password: c819a84c-17d4-4454-a528-63b0492a0c21, udp: true }
+  - { name: '🇩🇪德国01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31471, cipher: chacha20-ietf-poly1305, password: c819a84c-17d4-4454-a528-63b0492a0c21, udp: true }
+  - { name: '🇷🇺俄罗斯01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31511, cipher: chacha20-ietf-poly1305, password: c819a84c-17d4-4454-a528-63b0492a0c21, udp: true }
+  - { name: '🇹🇷土耳其01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31571, cipher: chacha20-ietf-poly1305, password: c819a84c-17d4-4454-a528-63b0492a0c21, udp: true }
+  - { name: '🇺🇦乌克兰01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31611, cipher: chacha20-ietf-poly1305, password: c819a84c-17d4-4454-a528-63b0492a0c21, udp: true }
+  - { name: '🇻🇳越南01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31641, cipher: chacha20-ietf-poly1305, password: c819a84c-17d4-4454-a528-63b0492a0c21, udp: true }
+  - { name: '🇧🇷巴西01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31671, cipher: chacha20-ietf-poly1305, password: c819a84c-17d4-4454-a528-63b0492a0c21, udp: true }
+  - { name: '🇮🇩印度尼西亚01_mkshare3', type: ss, server: free.2apzhfa.xyz, port: 31677, cipher: chacha20-ietf-poly1305, password: c819a84c-17d4-4454-a528-63b0492a0c21, udp: true }
+
+proxy-groups:
+#分流分组
+  - {name: 🚀 手动切换, <<: *a2}
+  - {name: 🌏 全球加速, <<: *a3}
+  - {name: 🤖 OpenAi,   type: select, proxies: [🇺🇲 美国节点]}
+  - {name: 🎬 国际媒体, <<: *a3}
+  - {name: 📟 电报消息, <<: *a3}
+  - {name: 🌌 谷歌服务, <<: *a3}
+  - {name: 🍎 苹果服务, <<: *a3}
+  - {name: 📺 哔哩哔哩, type: select, proxies: [DIRECT, 🇭🇰 香港节点, 🇨🇳 台湾节点]}
+  - {name: 🐦 推特服务, <<: *a3}
+  - {name: 🎮 游戏平台, <<: *a3}
+  - {name: 🆎 AdBlock, type: select, proxies: [REJECT]}
+  - {name: 🐟 兜底分流, <<: *a3}
+  
+#节点分组
+  - {name: ♻️ 自动选择, <<: [*a4, *r1]}
+  - {name: 🇭🇰 香港节点, <<: [*a4, *hk]   }
+  - {name: 🇯🇵 日本节点, <<:  [*a4, *jp]   }   
+  - {name: 🇨🇳 台湾节点, <<: [*a4, *tw]   }
+  - {name: 🇺🇲 美国节点, <<: [*a4, *us]   }
+  - {name: 🇸🇬 狮城节点, <<: [*a4, *sg]    }
+  - {name: 🇩🇪 德国节点, <<: [*a4, *de]   }
+  - {name: 🇬🇧 英国节点, <<: [*a4, *uk]   }
+  - {name: 🇷🇺 俄罗斯节点, <<: [*a4, *ru]   }
+  - {name: 🇲🇾 马来西亚节点, <<: [*a4, *my] }
+  - {name: 🇰🇷 韩国节点, <<: [*a4, *kr]   }
+
+# 分流规则 
+rule-providers:
+  Ad:          {<<: *a5, url: https://raw.githubusercontent.com/Cats-Team/AdRules/main/adrules_domainset.txt,                      path: ./ruleset/anti-ad-clash.yaml}
+  OpenAi:      {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/OpenAI/OpenAI.yaml,                      path: ./ruleset/OpenAi.yaml       }
+  BiliBili:    {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/BiliBili/BiliBili.yaml,                  path: ./ruleset/BiliBili.yaml     }
+  Bahamut:     {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Bahamut/Bahamut.yaml,                    path: ./ruleset/Bahamut.yaml      } 
+  GlobalMedia: {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/GlobalMedia/GlobalMedia_Classical.yaml,  path: ./ruleset/GlobalMedia.yaml  }
+  Apple:       {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Apple/Apple_Classical.yaml,              path: ./ruleset/Apple.yaml        }
+  Github:      {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/GitHub/GitHub.yaml,                      path: ./ruleset/Github.yaml       }
+  Microsoft:   {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Microsoft/Microsoft.yaml,                path: ./ruleset/Microsoft.yaml    }
+  Google:      {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Google/Google.yaml,                      path: ./ruleset/Google.yaml       }
+  Telegram:    {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Telegram/Telegram.yaml,                  path: ./ruleset/Telegram.yaml     }
+  Twitter:     {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Twitter/Twitter.yaml,                    path: ./ruleset/Twitter.yaml      }
+  Game:        {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Game/Game.yaml,                          path: ./ruleset/Game.yaml         }
+  ProxyLite:   {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/ProxyLite/ProxyLite.yaml,                path: ./ruleset/ProxyLite.yaml    }
+  Direct:      {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Direct/Direct.yaml,                      path: ./ruleset/Direct.yaml       }
+  Lan:         {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Lan/Lan.yaml,                            path: ./ruleset/Lan.yaml          }
+  Download:    {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Download/Download.yaml,                  path: ./ruleset/Download.yaml     }
+  ChinaIP:     {<<: *a7, url: https://cdn.jsdelivr.net/gh/soffchen/GeoIP2-CN@release/clash-rule-provider.yml,                                     path: ./ruleset/ChinaIP.yaml      }
+
+
+# 分流Policy 
+rules:
+  - RULE-SET,Ad,🆎 AdBlock
+  - RULE-SET,OpenAi,🤖 OpenAi
+  - RULE-SET,BiliBili,📺 哔哩哔哩
+  - RULE-SET,Bahamut,📺 哔哩哔哩
+  - RULE-SET,GlobalMedia,🎬 国际媒体
+  - RULE-SET,Apple,🍎 苹果服务
+  - RULE-SET,Github,🌏 全球加速
+  - RULE-SET,Microsoft, 🌏 全球加速
+  - RULE-SET,Google,🌌 谷歌服务
+  - RULE-SET,Telegram,📟 电报消息
+  - RULE-SET,Twitter,🌏 全球加速
+  - RULE-SET,Game,🎮 游戏平台
+  - RULE-SET,ProxyLite,🌏 全球加速
+  - RULE-SET,Direct,DIRECT
+  - RULE-SET,Lan,DIRECT
+  - RULE-SET,Download,DIRECT
+  - RULE-SET,ChinaIP,DIRECT
+  - GEOIP,CN,DIRECT
+  - MATCH,🐟 兜底分流
+
+
+# TUN模式是通过在操作系统上安装一个虚拟网卡来实现的，它可以接管所有的网络流量，并将流量转发至Clash，然后由Clash发出请求
+# Windows 系统中如何启用TUN模式
+# 1、运行 Clash For Windows, 确保使用规则模式，并可以联网
+# 2、点击 General中的Service Mode右侧的Manage按钮，在弹出窗口中选择schtasks，安装服务模式。安装完成后，应用程序会自动重启，Service Mode右侧的地球图标变为绿色表示安装成功
+# 3、点击 General中的TUN Mode右侧的开关以启动TUN模式
